@@ -15,11 +15,19 @@ passport.use(
     },
     // callback function
     (accessToken, refreshToken, profile, done) => {
-      // inside this callback function use model class to create new instance of a user
-      // then pass object that contains all the different properties this user will have
-      // profile.id is the id coming from users google profile
-      // to get model instance to persistence self to the users collection or to persist it self to the MongoDB database we have to call a function on that method called .save(), so when we call save it will automatically take this record it will take that model instance and it will save it to the database
-      new User({ googleId: profile.id }).save();
+      // initiate a query or search over all records inside the collection
+      User.findOne({ googleId: profile.id }).then((existingUser) => {
+        if (existingUser) {
+          // we already have a record with the given profile ID
+        } else {
+          // we don't have a user record with this ID, make a new record!
+          // inside this callback function use model class to create new instance of a user
+          // then pass object that contains all the different properties this user will have
+          // profile.id is the id coming from users google profile
+          // to get model instance to persistence self to the users collection or to persist it self to the MongoDB database we have to call a function on that method called .save(), so when we call save it will automatically take this record it will take that model instance and it will save it to the database
+          new User({ googleId: profile.id }).save();
+        }
+      });
 
       // console.log('access token', accessToken);
       // console.log('refresh token', refreshToken);
