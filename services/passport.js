@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
 // User is model class
-const User = mongoose.model('User');
+const User = mongoose.model('users');
 
 passport.use(
   new GoogleStrategy(
