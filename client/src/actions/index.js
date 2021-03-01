@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FETCH_USER } from './types';
 
-const fetchUser = () => {
+export const fetchUser = () => {
   return function (dispatch) {
     // make get request to backend
     axios
